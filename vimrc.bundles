@@ -55,7 +55,7 @@ nnoremap <Leader>s :call ToggleErrors()<cr>
 
 " ################### 自动补全 ###################
 
-"Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/YouCompleteMe'
 "youcompleteme  默认tab  s-tab 和自动补全冲突
 " let g:ycm_key_list_select_completion=['<c-n>']
 let g:ycm_key_list_select_completion = ['<Down>']
@@ -130,13 +130,12 @@ let g:UltiSnipsJumpBackwordTrigger = "<c-k>"
 
 " 自动补全单引号，双引号等
 Bundle 'Raimondi/delimitMate'
-
 " 优化输入
 au FileType python let b:delimitMate_nesting_quotes = ['"']
 
 " 自动补全html/xml标签
-Bundle 'docunext/closetag.vim'
-let g:closetag_html_style=1
+" Bundle 'docunext/closetag.vim'
+" let g:closetag_html_style=1
 
 
 
@@ -177,13 +176,13 @@ map <Leader><Leader>k <Plug>(easymotion-k)
 map <Leader><leader>l <Plug>(easymotion-lineforward)
 map <Leader><leader>. <Plug>(easymotion-repeat)
 
-Bundle 'vim-scripts/matchit.zip'
+" Bundle 'vim-scripts/matchit.zip'
 
+Bundle "kshenoy/vim-signature"
 " 显示marks - 方便自己进行标记和跳转
 " m[a-zA-Z] add mark
 " '[a-zA-Z] go to mark
 " m<Space>  del all marks
-Bundle "kshenoy/vim-signature"
 
 
 
@@ -211,11 +210,11 @@ if executable('ag')
 endif
 
 " 函数搜索
-Bundle 'tacahiroy/ctrlp-funky'
-nnoremap <Leader>fu :CtrlPFunky<Cr>
-nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-let g:ctrlp_funky_syntax_highlight = 1
-let g:ctrlp_extensions = ['funky']
+" Bundle 'tacahiroy/ctrlp-funky'
+" nnoremap <Leader>fu :CtrlPFunky<Cr>
+" nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+" let g:ctrlp_funky_syntax_highlight = 1
+" let g:ctrlp_extensions = ['funky']
 
 " 全局搜索
 Bundle "dyng/ctrlsf.vim"
@@ -255,32 +254,38 @@ let g:airline_symbols.branch = '⎇'
 " 是否打开tabline
 " let g:airline#extensions#tabline#enabled = 1
 
-" 括号显示增强
-Bundle 'kien/rainbow_parentheses.vim'
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
+" Themes of vim-airline
+Plugin 'vim-airline/vim-airline-themes'
+set t_Co=256
+let g:airline_theme="light"
+" let g:airline_theme="solarized"
 
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+" 括号显示增强
+" Bundle 'kien/rainbow_parentheses.vim'
+" let g:rbpt_colorpairs = [
+    " \ ['brown',       'RoyalBlue3'],
+    " \ ['Darkblue',    'SeaGreen3'],
+    " \ ['darkgray',    'DarkOrchid3'],
+    " \ ['darkgreen',   'firebrick3'],
+    " \ ['darkcyan',    'RoyalBlue3'],
+    " \ ['darkred',     'SeaGreen3'],
+    " \ ['darkmagenta', 'DarkOrchid3'],
+    " \ ['brown',       'firebrick3'],
+    " \ ['gray',        'RoyalBlue3'],
+    " \ ['darkmagenta', 'DarkOrchid3'],
+    " \ ['Darkblue',    'firebrick3'],
+    " \ ['darkgreen',   'RoyalBlue3'],
+    " \ ['darkcyan',    'SeaGreen3'],
+    " \ ['darkred',     'DarkOrchid3'],
+    " \ ['red',         'firebrick3'],
+    " \ ]
+
+" let g:rbpt_max = 16
+" let g:rbpt_loadcmd_toggle = 0
+" au VimEnter * RainbowParenthesesToggle
+" au Syntax * RainbowParenthesesLoadRound
+" au Syntax * RainbowParenthesesLoadSquare
+" au Syntax * RainbowParenthesesLoadBraces
 
 " 主题 solarized
 " Bundle 'altercation/vim-colors-solarized'
@@ -342,21 +347,21 @@ Bundle 'hdima/python-syntax'
 let python_highlight_all = 1
 
 " Markdown相关
-Bundle 'plasticboy/vim-markdown'
-let g:vim_markdown_folding_disabled=1
+" Bundle 'plasticboy/vim-markdown'
+" let g:vim_markdown_folding_disabled=1
 
 " Javascript相关
 " Bundle 'jelera/vim-javascript-syntax'
-" Bundle "pangloss/vim-javascript"
+" Bundle 'pangloss/vim-javascript'
 " let g:html_indent_inctags = "html,body,head,tbody"
 " let g:html_indent_script1 = "inc"
 " let g:html_indent_style1 = "inc"
 
 " 强大的web前端必备插件
-" Bundle "mattn/emmet-vim"
+" Bundle 'mattn/emmet-vim'
 
 " 基于tmux多屏的无缝跳转
-Bundle 'christoomey/vim-tmux-navigator'
+" Bundle 'christoomey/vim-tmux-navigator'
 
 " LUA相关配置
 " Plugin 'lua.vim'

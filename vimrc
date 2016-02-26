@@ -132,7 +132,7 @@ endif
 "显示当前的行号列号：
 set ruler
 
-""在状态栏显示正在输入的命令
+" 在状态栏显示正在输入的命令
 set showcmd
 
 " 左下角显示当前vim模式
@@ -181,6 +181,7 @@ set foldlevel=99
 " 代码折叠自定义快捷键
 let g:FoldMethod = 0
 map <leader>zz :call ToggleFold()<cr>
+map <space> :call ToggleFold()<cr>
 fun! ToggleFold()
     if g:FoldMethod == 0
         exe "normal! zM"
@@ -343,9 +344,9 @@ cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
 " 使用空格键进入搜索模式
-map <space> /
-nnoremap / /\v
-vnoremap / /\v
+" map <space> /
+" nnoremap / /\v
+" vnoremap / /\v
 
 " 保证搜索内容在屏幕中央
 nnoremap <silent> n nzz
@@ -501,10 +502,10 @@ endif
 
 " 在GUI模式下设置额外的选项
 if has("gui_running")
-    set guifont=Monaco:h14
-    if has("gui_gtk2")   "GTK2
-        set guifont=Monaco\ 12,Monospace\ 12
-    endif
+    " set guifont=Monaco:h14
+    " if has("gui_gtk2")   "GTK2
+        " set guifont=Monaco\ 12,Monospace\ 12
+    " endif
     set guioptions-=T
     set guioptions+=e
     set guioptions-=r
