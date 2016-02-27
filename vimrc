@@ -483,28 +483,78 @@ endfun
 autocmd FileType c,cpp,java,go,php,javascript,puppet,python,ruby,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 " 定义函数AutoSetFileHead，自动插入文件头
-autocmd BufNewFile *.sh,*.py,*.rb exec ":call AutoSetFileHead()"
+autocmd BufNewFile *.h,*.cc,*.sh,*.py,*.rb exec ":call AutoSetFileHead()"
+" # 注释
+function! SetComment_NS()
+
+    call setline(1, "\#******************************************************************************")
+    call append(1, "\# File Name: ".expand("%"))
+    call append(2, "\# Author: Chuncheng Wei")
+    call append(3, "\# Mail: weicc1989@gmail.com")
+    call append(4, "\# Created Time : ".strftime("%c"))
+    call append(5, "\#******************************************************************************")
+    call append(6, "")
+endfunc
+" /**/ 注释
+function! SetComment_BS()
+
+    call setline(1, "\/******************************************************************************")
+    call append(1, "\# File Name: ".expand("%"))
+    call append(2, "\# Author: Chuncheng Wei")
+    call append(3, "\# Mail: weicc1989@gmail.com")
+    call append(4, "\# Created Time : ".strftime("%c"))
+    call append(5, "******************************************************************************\/")
+    call append(6, "")
+endfunc
 function! AutoSetFileHead()
+
     "如果文件类型为.sh文件
     if &filetype == 'sh'
-        call setline(1, "\#!/bin/bash")
+        call SetComment_NS()
+        call append(7, "\#!/bin/bash")
+        call append(8, "")
+        call append(9, "")
+        normal 10G
     endif
 
     "如果文件类型为python
     if &filetype == 'python'
-        call setline(1, "\#!/usr/bin/env python")
-        call append(1, "\# encoding: utf-8")
+        call SetComment_NS()
+        call append(7, "\#!/usr/bin/env python")
+        call append(8, "\# encoding: utf-8")
+        call append(9, "")
+        call append(10, "")
+        normal 11G
     endif
 
     "如果文件类型为ruby
     if &filetype == 'ruby'
-        call setline(1, "\#!/usr/bin/env ruby")
-        call append(1, "\# encoding: utf-8")
+        call SetComment_NS()
+        call append(7, "\#!/usr/bin/env ruby")
+        call append(8, "\# encoding: utf-8")
+        call append(9, "")
+        call append(10, "")
+        normal 11G
     endif
 
-    normal G
-    normal o
-    normal o
+     "如果文件类型为h
+    if expand("%:e") == 'h'
+        call SetComment_BS()
+        call append(7, "\#ifndef _".toupper(expand("%:r"))."_H")
+        call append(8, "\#define _".toupper(expand("%:r"))."_H")
+        call append(9, "")
+        call append(10, "\#endif")
+        normal 10G
+    endif
+
+     "如果文件类型为cc
+    if expand("%:e") == 'cc'
+        call SetComment_BS()
+        call append(7, "\#include <iostream>")
+        call append(8, "\#include \"".expand("%:r").".h\"")
+        call append(9, "")
+        normal 10G
+    endif
 endfunc
 
 " 设置一些关键字为高亮

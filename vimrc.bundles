@@ -20,10 +20,6 @@ Plugin 'vim-utils/vim-man'
 " 快速切换头文件与源文件 A
 Plugin 'a.vim'
 
-" syntax using ycm
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-
 " 多语言语法检查
 " Bundle 'scrooloose/syntastic'
 " let g:syntastic_error_symbol='>>'
@@ -77,6 +73,10 @@ nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
 let g:ycm_confirm_extra_conf=0
 let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
 
+" syntax using ycm
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+
 
 " " 代码片段快速插入
 " Bundle 'SirVer/ultisnips'
@@ -114,10 +114,10 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/
 " Snippets are separated from the engine. Add this if you want them:)
 " Bundle 'honza/vim-snippets'
 
-" 自动补全单引号，双引号等
-Bundle 'Raimondi/delimitMate'
-" 优化输入
-au FileType python let b:delimitMate_nesting_quotes = ['"']
+" " 自动补全单引号，双引号等
+" Bundle 'Raimondi/delimitMate'
+" " 优化输入
+" au FileType python let b:delimitMate_nesting_quotes = ['"']
 
 
 " ################### 快速编码 ###################
@@ -211,12 +211,12 @@ Bundle 'tpope/vim-fugitive'
 " nnoremap <leader>gl :Glog<CR>
 
 " 同git diff,实时展示文件中修改的行
-Bundle 'airblade/vim-gitgutter'
-let g:gitgutter_map_keys = 0
-let g:gitgutter_enabled = 1
-let g:gitgutter_signs = 1
-let g:gitgutter_highlight_lines = 1
-nnoremap <leader>gs :GitGutterToggle<CR>
+" Bundle 'airblade/vim-gitgutter'
+" let g:gitgutter_map_keys = 0
+" let g:gitgutter_enabled = 1
+" let g:gitgutter_signs = 1
+" let g:gitgutter_highlight_lines = 1
+" nnoremap <leader>gs :GitGutterToggle<CR>
 
 " ################### 显示增强 ###################
 
