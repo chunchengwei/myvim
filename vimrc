@@ -51,7 +51,7 @@ filetype plugin indent on
 set autoread
 
 " 启动的时候不显示那个援助索马里儿童的提示
-set shortmess=atI
+" set shortmess=atI
 
 " 取消备份
 set nobackup
@@ -80,6 +80,7 @@ set cursorline          " 突出显示当前行
 set mouse-=a
 
 " 设置选择区域与模式
+" 指定在选择文本时，光标所在位置也属于被选中的范围
 set selection=inclusive
 set selectmode=mouse,key
 
@@ -87,7 +88,7 @@ set selectmode=mouse,key
 set title
 set novisualbell
 set noerrorbells
-" set t_vb=
+set t_vb=
 set tm=500
 
 set viminfo^=%
@@ -173,8 +174,22 @@ set ignorecase
 " 有一个或以上大写字母时仍大小写敏感
 set smartcase
 
+" 设置第80列为灰色
+set colorcolumn=80
+hi ColorColumn ctermbg=Gray
+
+" 设置注释为灰色
+" hi Comment ctermfg=LightGray
+
 " 代码折叠
 set foldenable
+" 折叠方法
+" manual    手工折叠
+" indent    使用缩进表示折叠
+" expr      使用表达式定义折叠
+" syntax    使用语法定义折叠
+" diff      对没有更改的文本进行折叠
+" marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
 set foldmethod=indent
 set foldlevel=99
 
@@ -204,6 +219,7 @@ set smarttab      " 按退格键时可以一次删掉 4 个空格
 set expandtab     " 将Tab自动转化成空格
 set shiftround    " 缩进时，取整
 
+" A buffer becomes hidden when it is abandoned
 set hidden
 set wildmode=list:longest
 set ttyfast
@@ -211,7 +227,7 @@ set ttyfast
 " 00x增减数字时使用十进制
 set nrformats=
 
-" 相对行号
+" 相对行号: 行号变成相对，可以用 nj/nk 进行跳转
 " set relativenumber number
 " au FocusLost * :set norelativenumber number
 " au FocusGained * :set relativenumber
@@ -242,7 +258,7 @@ set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 " 下面这句只影响普通模式 (非图形界面) 下的 Vim。
 set termencoding=utf-8
 
-set ffs=unix,dos
+set ffs=unix,dos,mac
 
 " 如遇Unicode值大于255的文本，不必等到空格再折行。
 set formatoptions+=m
@@ -259,6 +275,7 @@ autocmd! bufwritepost _vimrc source % " windows
 autocmd! bufwritepost .vimrc source % " linux
 
 " 自动补全配置
+" 让Vim的补全菜单行为与一般IDE一致(参考VimTip1228))
 set completeopt=longest,menu
 
 " 增强模式中的命令行自动完成操作
@@ -336,6 +353,9 @@ noremap L $
 
 " 快速进入命令行
 nnoremap ; :
+
+" 设置快捷键将选中文本块复制至系统剪贴板
+" vnoremap <Leader>y '+y'
 
 " 命令行模式增强，ctrl-a到行首，ctrl-e到行尾
 cnoremap <C-j> <t_kd>
