@@ -311,10 +311,10 @@ map <Up> <Nop>
 map <Down> <Nop>
 
 " 同物理行上线直接跳
-" nnoremap k gk
-" nnoremap gk k
-" nnoremap j gj
-" nnoremap gj j
+nnoremap k gk
+nnoremap gk k
+nnoremap j gj
+nnoremap gj j
 
 " F5 粘贴模式paste_mode开关,用于有格式的代码粘贴
 set pastetoggle=<F5>
