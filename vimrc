@@ -484,76 +484,66 @@ autocmd FileType c,cpp,java,go,php,javascript,puppet,python,ruby,rust,twig,xml,y
 
 " 定义函数AutoSetFileHead，自动插入文件头
 autocmd BufNewFile *.h,*.cc,*.sh,*.py,*.rb exec ":call AutoSetFileHead()"
-" # 注释
-function! SetComment_NS()
+" 注释
+function! SetComment(n, sign)
 
-    call setline(1, "\#******************************************************************************")
-    call append(1, "\# File Name: ".expand("%"))
-    call append(2, "\# Author: Chuncheng Wei")
-    call append(3, "\# Mail: weicc1989@gmail.com")
-    call append(4, "\# Created Time : ".strftime("%c"))
-    call append(5, "\#******************************************************************************")
-    call append(6, "")
+    call setline(a:n, a:sign."******************************************************************************")
+    call setline(a:n+1, a:sign." File Name: ".expand("%"))
+    call setline(a:n+2, a:sign." Author: Chuncheng Wei")
+    call setline(a:n+3, a:sign." Mail: weicc1989@gmail.com")
+    call setline(a:n+4, a:sign." Created Time : ".strftime("%c"))
+    call setline(a:n+5, a:sign."******************************************************************************")
+    call setline(a:n+6, "")
+    return a:n+6
 endfunc
 " /**/ 注释
-function! SetComment_BS()
-
-    call setline(1, "\/******************************************************************************")
-    call append(1, "\# File Name: ".expand("%"))
-    call append(2, "\# Author: Chuncheng Wei")
-    call append(3, "\# Mail: weicc1989@gmail.com")
-    call append(4, "\# Created Time : ".strftime("%c"))
-    call append(5, "******************************************************************************\/")
-    call append(6, "")
-endfunc
 function! AutoSetFileHead()
 
     "如果文件类型为.sh文件
     if &filetype == 'sh'
-        call SetComment_NS()
-        call append(7, "\#!/bin/bash")
-        call append(8, "")
-        call append(9, "")
-        normal 10G
+        call setline(1, "\#!/bin/bash")
+        call SetComment(2, "\#")
+        call setline(3, "")
+        normal G
     endif
 
     "如果文件类型为python
     if &filetype == 'python'
-        call SetComment_NS()
-        call append(7, "\#!/usr/bin/env python")
-        call append(8, "\# encoding: utf-8")
-        call append(9, "")
-        call append(10, "")
-        normal 11G
+        call setline(1, "\#!/home/weicc/.pyenv/shims/python")
+        call setline(2, "\# encoding: utf-8")
+        call SetComment(3, "\#")
+        call setline(4, "")
+        normal G
     endif
 
     "如果文件类型为ruby
     if &filetype == 'ruby'
-        call SetComment_NS()
-        call append(7, "\#!/usr/bin/env ruby")
-        call append(8, "\# encoding: utf-8")
-        call append(9, "")
-        call append(10, "")
-        normal 11G
+        call setline(1, "\#!/home/weicc/.rbenv/shims/ruby")
+        call setline(2, "\# encoding: utf-8")
+        call SetComment(3, "\#")
+        call setline(4, "")
+        normal G
     endif
 
      "如果文件类型为h
     if expand("%:e") == 'h'
-        call SetComment_BS()
-        call append(7, "\#ifndef _".toupper(expand("%:r"))."_H")
-        call append(8, "\#define _".toupper(expand("%:r"))."_H")
-        call append(9, "")
-        call append(10, "\#endif")
-        normal 10G
+        let nend = SetComment(0, "\/\/")
+        call setline(nend+1, "\#ifndef _".toupper(expand("%:r"))."_H")
+        call setline(nend+2, "\#define _".toupper(expand("%:r"))."_H")
+        call setline(nend+3, "")
+        call setline(nend+4, "\#endif")
+        normal G
+        normal k
     endif
 
      "如果文件类型为cc
     if expand("%:e") == 'cc'
-        call SetComment_BS()
-        call append(7, "\#include <iostream>")
-        call append(8, "\#include \"".expand("%:r").".h\"")
-        call append(9, "")
-        normal 10G
+        let nend = SetComment(0, "\/\/")
+        call setline(nend+1, "\#include <iostream>")
+        call setline(nend+2, "\#include \"".expand("%:r").".h\"")
+        call setline(nend+3, "")
+        call setline(nend+4, "")
+        normal G
     endif
 endfunc
 
