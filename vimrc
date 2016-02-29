@@ -502,8 +502,8 @@ function! AutoSetFileHead()
     "如果文件类型为.sh文件
     if &filetype == 'sh'
         call setline(1, "\#!/bin/bash")
-        call SetComment(2, "\#")
-        call setline(3, "")
+        let nend = SetComment(2, "\#")
+        call setline(nend+1, "")
         normal G
     endif
 
@@ -511,8 +511,8 @@ function! AutoSetFileHead()
     if &filetype == 'python'
         call setline(1, "\#!/home/weicc/.pyenv/shims/python")
         call setline(2, "\# encoding: utf-8")
-        call SetComment(3, "\#")
-        call setline(4, "")
+        let nend = SetComment(3, "\#")
+        call setline(nend+1, "")
         normal G
     endif
 
@@ -520,14 +520,14 @@ function! AutoSetFileHead()
     if &filetype == 'ruby'
         call setline(1, "\#!/home/weicc/.rbenv/shims/ruby")
         call setline(2, "\# encoding: utf-8")
-        call SetComment(3, "\#")
-        call setline(4, "")
+        let nend = SetComment(3, "\#")
+        call setline(nend+1, "")
         normal G
     endif
 
      "如果文件类型为h
     if expand("%:e") == 'h'
-        let nend = SetComment(0, "\/\/")
+        let nend = SetComment(1, "\/\/")
         call setline(nend+1, "\#ifndef _".toupper(expand("%:r"))."_H")
         call setline(nend+2, "\#define _".toupper(expand("%:r"))."_H")
         call setline(nend+3, "")
@@ -538,7 +538,7 @@ function! AutoSetFileHead()
 
      "如果文件类型为cc
     if expand("%:e") == 'cc'
-        let nend = SetComment(0, "\/\/")
+        let nend = SetComment(1, "\/\/")
         call setline(nend+1, "\#include <iostream>")
         call setline(nend+2, "\#include \"".expand("%:r").".h\"")
         call setline(nend+3, "")
