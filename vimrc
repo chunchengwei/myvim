@@ -562,7 +562,7 @@ endif
 
 " 在GUI模式下设置额外的选项
 if has("gui_running")
-    " set guifont=Monaco:h14
+    " set guifont=Consolas:h10
     " if has("gui_gtk2")   "GTK2
         " set guifont=Monaco\ 12,Monospace\ 12
     " endif
