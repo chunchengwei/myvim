@@ -550,9 +550,10 @@ function! AutoSetFileHead()
     if expand("%:e") == 'C'
         let nend = SetComment(1, "\/\/")
         call setline(nend+1, "\/\/this is a cern root script")
-        call setline(nend+2, "void ".expand("%:r")."\(\) \{")
-        call setline(nend+3, "")
-        call setline(nend+4, "\}")
+        call setline(nend+2, "void ".expand("%:r")."() {")
+        call setline(nend+3, "  gInterpreter->ProcessLine(\".X /home/weicc/DRY_STUDIO/ROOT/gStyle/setstyle.C\");")
+        call setline(nend+4, "")
+        call setline(nend+5, "}")
         normal G
         normal k
     endif
