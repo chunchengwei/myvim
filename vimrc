@@ -483,7 +483,7 @@ endfun
 autocmd FileType c,cpp,java,go,php,javascript,puppet,python,ruby,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 " 定义函数AutoSetFileHead，自动插入文件头
-autocmd BufNewFile *.h,*.cc,*.sh,*.py,*.rb exec ":call AutoSetFileHead()"
+autocmd BufNewFile *.h,*.cc,*.C,*.sh,*.py,*.rb exec ":call AutoSetFileHead()"
 " 注释
 function! SetComment(n, sign)
 
@@ -545,6 +545,18 @@ function! AutoSetFileHead()
         call setline(nend+4, "")
         normal G
     endif
+
+    "如果文件类型为C，用于Cern root脚本
+    if expand("%:e") == 'C'
+        let nend = SetComment(1, "\/\/")
+        call setline(nend+1, "\/\/this is a cern root script")
+        call setline(nend+2, "void ".expand("%:r")."\(\) \{")
+        call setline(nend+3, "")
+        call setline(nend+4, "\}")
+        normal G
+        normal k
+    endif
+
 endfunc
 
 " 设置一些关键字为高亮
