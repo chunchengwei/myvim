@@ -549,7 +549,7 @@ function! AutoSetFileHead()
     "如果文件类型为C，用于Cern root脚本
     if expand("%:e") == 'C'
         let nend = SetComment(1, "\/\/")
-        call setline(nend+1, "\/\/this is a cern root script")
+        call setline(nend+1, "\/\/ this is a cern root script")
         call setline(nend+2, "void ".expand("%:r")."() {")
         call setline(nend+3, "  gInterpreter->ProcessLine(\".X /home/weicc/DRY_STUDIO/ROOT/gStyle/setstyle.C\");")
         call setline(nend+4, "")
