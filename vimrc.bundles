@@ -58,8 +58,8 @@ nnoremap <Leader>s :call ToggleErrors()<cr>
 " ################### 自动补全 ###################
 Bundle 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabMappingForward = '<tab>'
-let g:SuperTabMappingBackward = '<s-tab>'
+let g:SuperTabMappingForward = '<s-tab>'
+let g:SuperTabMappingBackward = '<tab>'
 
 " Bundle 'Valloric/YouCompleteMe'
 " " "youcompleteme  默认tab  s-tab 和自动补全冲突
