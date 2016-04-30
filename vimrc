@@ -484,6 +484,8 @@ autocmd FileType c,cpp,java,go,php,javascript,puppet,python,ruby,rust,twig,xml,y
 
 " 定义函数AutoSetFileHead，自动插入文件头
 autocmd BufNewFile *.h,*.cc,*.C,*.sh,*.py,*.rb exec ":call AutoSetFileHead()"
+" 给.rb文件和.sh文件自动添加执行权限
+autocmd BufWritePost *.sh,*.rb silent !chmod a+x %
 " 注释
 function! SetComment(n, sign)
 
