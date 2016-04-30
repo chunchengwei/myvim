@@ -484,8 +484,17 @@ autocmd FileType c,cpp,java,go,php,javascript,puppet,python,ruby,rust,twig,xml,y
 
 " 定义函数AutoSetFileHead，自动插入文件头
 autocmd BufNewFile *.h,*.cc,*.C,*.sh,*.py,*.rb exec ":call AutoSetFileHead()"
+
 " 给.rb文件和.sh文件自动添加执行权限
 autocmd BufWritePost *.sh,*.rb silent !chmod a+x %
+
+" 定义函数LastMod，自动保存修改文件时间
+autocmd BufWritePre *.h,*.cc,*.C,*.sh,*.py,*.rb exec ":call LastMod()"
+
+function! LastMod()
+  exe "1,10g/Last Modified: /s/Last Modified: .*/Last Modified: ".strftime("%c")
+endfunc
+
 " 注释
 function! SetComment(n, sign)
 
@@ -494,9 +503,10 @@ function! SetComment(n, sign)
     call setline(a:n+2, a:sign." Author: Chuncheng Wei")
     call setline(a:n+3, a:sign." Mail: weicc1989@gmail.com")
     call setline(a:n+4, a:sign." Created Time : ".strftime("%c"))
-    call setline(a:n+5, a:sign."******************************************************************************")
-    call setline(a:n+6, "")
-    return a:n+6
+    call setline(a:n+5, a:sign." Last Modified: ".strftime("%c"))
+    call setline(a:n+6, a:sign."******************************************************************************")
+    call setline(a:n+7, "")
+    return a:n+7
 endfunc
 " /**/ 注释
 function! AutoSetFileHead()
