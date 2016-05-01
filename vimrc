@@ -499,10 +499,12 @@ function! SetExecutable()
   endif
 endfunc
 
-" 保存修改时间
+" 保存时，如果文件发生修改，自动保存时间
 function! LastMod()
-  let l:nlines = line("$") > 10 ? 10 : line("$")
-  exe "1,".l:nlines."g/Last Modified: /s/Last Modified: .*/Last Modified: ".strftime("%c")
+  if &modified
+    let l:nlines = line("$") > 10 ? 10 : line("$")
+    exe "1,".l:nlines."g/Last Modified: /s/Last Modified: .*/Last Modified: ".strftime("%c")
+  endif
 endfunc
 
 " 注释
