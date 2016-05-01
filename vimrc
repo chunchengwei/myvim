@@ -528,7 +528,8 @@ function! AutoSetFileHead()
     if &filetype == 'sh'
         call setline(1, "\#!/bin/bash")
         let nend = SetComment(2, "\#")
-        call setline(nend+1, "")
+        call setline(nend+1, "source ~/DRY_STUDIO/Bash/woformat/woformat.sh")
+        call setline(nend+2, "")
         normal G
     endif
 
