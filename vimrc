@@ -485,21 +485,31 @@ autocmd FileType c,cpp,java,go,php,javascript,puppet,python,ruby,rust,twig,xml,y
 " 定义函数AutoSetFileHead，自动插入文件头
 autocmd BufNewFile *.h,*.cc,*.C,*.sh,*.py,*.rb exec ":call AutoSetFileHead()"
 
-" 给.rb文件和.sh文件自动添加执行权限
-autocmd BufWritePost *.sh,*.rb silent !chmod a+x %
-
 " 定义函数LastMod，自动保存修改文件时间
 autocmd BufWritePre *.h,*.cc,*.C,*.sh,*.py,*.rb exec ":call LastMod()"
 
+" 给.rb文件和.sh文件自动添加执行权限
+autocmd BufWritePost *.sh,*.rb exec ":call SetExecutable()"
+
+" 检查当前文件并设置可执行权限
+function! SetExecutable()
+  exe "silent !test -x ".expand("%")
+  if v:shell_error
+    exe "silent !chmod a+x ".expand("%")
+  endif
+endfunc
+
+" 保存修改时间
 function! LastMod()
-  exe "1,10g/Last Modified: /s/Last Modified: .*/Last Modified: ".strftime("%c")
+  let l:nlines = line("$") > 10 ? 10 : line("$")
+  exe "1,".l:nlines."g/Last Modified: /s/Last Modified: .*/Last Modified: ".strftime("%c")
 endfunc
 
 " 注释
 function! SetComment(n, sign)
 
     call setline(a:n, a:sign."******************************************************************************")
-    call setline(a:n+1, a:sign." File Name: ".expand("%"))
+    call setline(a:n+1, a:sign." File Name: ".expand("%:t"))
     call setline(a:n+2, a:sign." Author: Chuncheng Wei")
     call setline(a:n+3, a:sign." Mail: weicc1989@gmail.com")
     call setline(a:n+4, a:sign." Created Time : ".strftime("%c"))
@@ -508,7 +518,8 @@ function! SetComment(n, sign)
     call setline(a:n+7, "")
     return a:n+7
 endfunc
-" /**/ 注释
+
+" 插入文件头
 function! AutoSetFileHead()
 
     "如果文件类型为.sh文件
@@ -540,8 +551,8 @@ function! AutoSetFileHead()
      "如果文件类型为h
     if expand("%:e") == 'h'
         let nend = SetComment(1, "\/\/")
-        call setline(nend+1, "\#ifndef _".toupper(expand("%:r"))."_H")
-        call setline(nend+2, "\#define _".toupper(expand("%:r"))."_H")
+        call setline(nend+1, "\#ifndef _".toupper(expand("%:t:r"))."_H")
+        call setline(nend+2, "\#define _".toupper(expand("%:t:r"))."_H")
         call setline(nend+3, "")
         call setline(nend+4, "\#endif")
         normal G
@@ -552,7 +563,7 @@ function! AutoSetFileHead()
     if expand("%:e") == 'cc'
         let nend = SetComment(1, "\/\/")
         call setline(nend+1, "\#include <iostream>")
-        call setline(nend+2, "\#include \"".expand("%:r").".h\"")
+        call setline(nend+2, "\#include \"".expand("%:t:r").".h\"")
         call setline(nend+3, "")
         call setline(nend+4, "")
         normal G
@@ -562,7 +573,7 @@ function! AutoSetFileHead()
     if expand("%:e") == 'C'
         let nend = SetComment(1, "\/\/")
         call setline(nend+1, "\/\/ this is a cern root script")
-        call setline(nend+2, "void ".expand("%:r")."() {")
+        call setline(nend+2, "void ".expand("%:t:r")."() {")
         call setline(nend+3, "  gInterpreter->ProcessLine(\".X /home/weicc/DRY_STUDIO/ROOT/gStyle/setstyle.C\");")
         call setline(nend+4, "")
         call setline(nend+5, "}")
