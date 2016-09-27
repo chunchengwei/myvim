@@ -1,5 +1,11 @@
 # vimix
 
+stop update this project
+
+this project has move to
+https://github.com/chunchengwei/myvim-ubuntu_bash_on_windows
+
+
 参考 [k-vim](https://github.com/wklken/k-vim)
 
 ### 安装
